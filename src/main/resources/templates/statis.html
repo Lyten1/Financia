@@ -70,97 +70,92 @@
     </header>
     <!-- header selection end-->
 
-<<<<<<< HEAD
     <div class="container">
-=======
-     <div class="container">
->>>>>>> 58e28839dce60988749fc6805399593b10dea940
-        <div class="top">
-            <div class="rectangle">
-                <div class="ratio-inner ratio-1-1">
-                    <div class="ratio-content">
+        <div class="container">
+            <div class="top">
+                <div class="rectangle">
+                    <div class="ratio-inner ratio-1-1">
+                        <div class="ratio-content">
 
-                        <h1 style="font-size: 40px; color:#c50000; text-align:center; display: block; align-items: center"
-                            th:text="${total_expence}"> </h1>
+                            <h1 style="font-size: 40px; color:#c50000; text-align:center; display: block; align-items: center"
+                                th:text="${total_expence}"> </h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div data-proportion-h="1" class="rectangle">
-                <div class="ratio-inner ratio-1-1">
-                    <div class="ratio-content">
+                <div data-proportion-h="1" class="rectangle">
+                    <div class="ratio-inner ratio-1-1">
+                        <div class="ratio-content">
 
-                        <h1 style="font-size: 40px; color:green; text-align:center; display: block; align-items: center"
-                            th:text="${total_income}"> </h1>
+                            <h1 style="font-size: 40px; color:green; text-align:center; display: block; align-items: center"
+                                th:text="${total_income}"> </h1>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-=======
-         <div class="container">
-             <div class="top">
-                 <div class="rectangle">
-                     <div class="ratio-inner ratio-1-1">
-                         <div class="ratio-content">
+
+        <div class="container">
+            <div class="top">
+                <div class="rectangle">
+                    <div class="ratio-inner ratio-1-1">
+                        <div class="ratio-content">
 
                             <table class="table">
-                                 <thead>
-                                 <tr>
-                                     <th>Amount</th>
-                                     <th>Currency</th>
-                                     <th>Category</th>
-                                     <th>Comment</th>
-                                     <th>Date</th>
-                                 </tr>
-                                 </thead>
-                                 <tbody>
-                                 <tr th:each="expence : ${expenceList}">
-                                     <td th:text="${expence.amount}">Sam</td>
-                                     <td th:text="${expence.currency}">Sam</td>
-                                     <td th:text="${expence.category}">Sam</td>
-                                     <td th:text="${expence.comment}">Sam</td>
-                                     <td th:text="${expence.date}">Sam</td>
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Currency</th>
+                                        <th>Category</th>
+                                        <th>Comment</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="expence : ${expenceList}">
+                                        <td th:text="${expence.amount}">Sam</td>
+                                        <td th:text="${expence.currency}">Sam</td>
+                                        <td th:text="${expence.category}">Sam</td>
+                                        <td th:text="${expence.comment}">Sam</td>
+                                        <td th:text="${expence.date}">Sam</td>
 
-                                 </tr>
+                                    </tr>
 
                                 </tbody>
                             </table>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="rectangle">
-                     <div class="ratio-inner ratio-1-1">
-                         <div class="ratio-content">
+                        </div>
+                    </div>
+                </div>
+                <div class="rectangle">
+                    <div class="ratio-inner ratio-1-1">
+                        <div class="ratio-content">
 
-                             <table class="table">
-                                 <thead>
-                                 <tr>
-                                     <th>Amount</th>
-                                     <th>Currency</th>
-                                     <th>Category</th>
-                                     <th>Comment</th>
-                                     <th>Date</th>
-                                 </tr>
-                                 </thead>
-                                 <tbody>
-                                 <tr th:each="income : ${incomeList}">
-                                     <td th:text="${income.amount}">Sam</td>
-                                     <td th:text="${income.currency}">Sam</td>
-                                     <td th:text="${income.category}">Sam</td>
-                                     <td th:text="${income.comment}">Sam</td>
-                                     <td th:text="${income.date}">Sam</td>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Currency</th>
+                                        <th>Category</th>
+                                        <th>Comment</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="income : ${incomeList}">
+                                        <td th:text="${income.amount}">Sam</td>
+                                        <td th:text="${income.currency}">Sam</td>
+                                        <td th:text="${income.category}">Sam</td>
+                                        <td th:text="${income.comment}">Sam</td>
+                                        <td th:text="${income.date}">Sam</td>
 
-                                 </tr>
-                                 </tbody>
-                             </table>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
->>>>>>> 58e28839dce60988749fc6805399593b10dea940
 </body>

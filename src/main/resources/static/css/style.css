@@ -28,160 +28,222 @@
     background-color: rgb(217, 114, 251);
     padding: 0.4rem 0.8rem;
     transition: all 0.5s ease;
-
-    .container-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .logo {
-        margin: auto;
-        font-size: 3.5rem;
-        text-transform: capitalize;
-        color: #444;
-        font-weight: border;
-    }
-
-    .logo i {
-        color: #ffffff;
-        margin: auto;
-    }
-
-    .active {
-        width: 250px;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    ul li {
-        position: relative;
-        list-style-type: none;
-        /* height: 50px; */
-        width: 90%;
-        margin: 0.8rem auto;
-        line-height: 50px;
-    }
-
-    ul li a {
-        color: rgb(1, 1, 1);
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        border-radius: 0.8rem;
-    }
-
-    ul li a:hover {
-        background-color: rgb(240, 216, 249);
-        color: black;
-    }
-
-    ul li a i {
-        min-width: 50px;
-        text-align: center;
-        margin: auto;
-        height: 50px;
-        border-radius: 10px;
-        line-height: 50px;
-    }
-
-    .trending_up {
-        color: black;
-    }
-
-    .nav-item {
-        opacity: 0;
-    }
-
-    .active .nav-item {
-        opacity: 1;
-    }
-
-    ul li .tooltip {
-        position: absolute;
-        left: 125px;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0.5rem 0.8rem;
-    }
-
-    /* ... (existing styles) */
-
-    .nav-button {
-        position: fixed;
-        bottom: 1px;
-        padding: 16px;
-        width: 50px;
-        cursor: pointer;
-        display: flex;
-        color: #000000;
-        list-style-type: none;
-        margin: 0.8rem auto;
-        text-align: center;
-        border-radius: 10px;
-        background-color: rgb(217, 114, 251);
-    }
-
-    .nav-button:hover {
-        background-color: rgb(240, 216, 249);
-        color: black;
-    }
-
-    .nav-button i {
-        margin-right: 10px;
-        /* Adjust the space between icon and text as needed */
-    }
-
-    .nav-button .nav-item {
-        opacity: 0;
-        /* Adjust the opacity as needed */
-    }
-
-    .nav-button.active .nav-item {
-        opacity: 1;
-    }
-
 }
+
+.header .container-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.header .logo {
+    margin: auto;
+    font-size: 3.5rem;
+    text-transform: capitalize;
+    color: #444;
+    font-weight: bolder;
+}
+
+.header .logo i {
+    color: #ffffff;
+    margin: auto;
+}
+
+.header.active {
+    width: 250px;
+}
+
+.header ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.header ul li {
+    position: relative;
+    list-style-type: none;
+    width: 90%;
+    margin: 0.8rem auto;
+    line-height: 50px;
+}
+
+.header ul li a {
+    color: rgb(1, 1, 1);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.header ul li a:hover {
+    background-color: rgb(240, 216, 249);
+    color: black;
+}
+
+/* .header ul li a i {
+    min-width: 50px;
+    text-align: center;
+    margin: auto;
+    height: 50px;
+    border-radius: 10px;
+    line-height: 50px;
+} */
+.header ul li a i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+
+.header .trending_up {
+    color: black;
+}
+
+.header .nav-item {
+    opacity: 0;
+}
+
+.header.active .nav-item {
+    opacity: 1;
+}
+
+.header ul li .tooltips {
+    /* display: block; */
+    position: absolute;
+    left: 125px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+    border-radius: .6rem;
+    padding: .4rem 1.2rem;
+    line-height: 1.8rem;
+    z-index: 20;
+    opacity: 0;
+}
+
+.header ul li:hover .tooltips {
+    opacity: 1;
+}
+
+.header.active ul li .tooltips {
+    display: none;
+}
+
+/* ul li .tooltip {
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+        box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+        padding: 0.5rem;
+        border-radius: 5px;
+        display: none;
+    }
+
+    ul li:hover .tooltip {
+        display: block;
+    
+}
+
+*/
+/* ... (existing styles) */
+
+.header .nav-button {
+    position: fixed;
+    bottom: 1px;
+    padding: 16px;
+    width: 50px;
+    cursor: pointer;
+    display: flex;
+    color: #000000;
+    list-style-type: none;
+    margin: 0.8rem auto;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(217, 114, 251);
+}
+
+.header .nav-button:hover {
+    background-color: rgb(240, 216, 249);
+    color: black;
+}
+
+.header .nav-button i {
+    margin-right: 10px;
+    /* Adjust the space between icon and text as needed */
+}
+
+.header .nav-button .nav-item {
+    opacity: 0;
+    /* Adjust the opacity as needed */
+}
+
+.header .nav-button.active .nav-item {
+    opacity: 1;
+}
+
+.header .nav-button .tooltips {
+    /* display: block; */
+    position: absolute;
+    left: 125px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+    border-radius: .6rem;
+    padding: .4rem 1.2rem;
+    line-height: 1.8rem;
+    z-index: 20;
+    opacity: 0;
+}
+
+.header .nav-button:hover .tooltips {
+    opacity: 1;
+}
+
+.header.active .nav-button .tooltips {
+    display: none;
+}
+
 
 .container {
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
 
-    .top {
-        display: flex;
-    }
+.container .top {
+    display: flex;
+}
 
-    .rectangle {
-        flex: 1;
-        margin: 5px;
-        max-height: 200px;
-    }
+.container .rectangle {
+    flex: 1;
+    margin: 5px;
+    max-height: 200px;
+}
 
-    .ratio-inner {
-        position: relative;
-        height: 0;
-        border: none;
-    }
+.container .ratio-inner {
+    position: relative;
+    height: 0;
+    border: none;
+}
 
-    .ratio-content {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: #eee;
-        max-height: 200px;
-    }
+.container .ratio-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #eee;
+    max-height: 200px;
+}
 
-    .ratio-1-1 {
-        padding-top: 100%;
-    }
+.container .ratio-1-1 {
+    padding-top: 100%;
 }
