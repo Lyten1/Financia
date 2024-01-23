@@ -15,16 +15,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("Username: " +  username);
+    public UserDetails loadUserByUsername(String username) throws NullPointerException, UsernameNotFoundException {
         User userUnit = findByUsername(username);
 
+           return new org.springframework.security.core.userdetails.User(
+                   userUnit.getUsername(),
+                   userUnit.getPassword(),
+                   userUnit.getAuthorities()
+           );
 
-        return new org.springframework.security.core.userdetails.User(
-                userUnit.getUsername(),
-                userUnit.getPassword(),
-                userUnit.getAuthorities()
-        );
     }
 
 

@@ -76,7 +76,6 @@
         <div data-proportion-h="1" class="rectangle">
             <div class="ratio-inner ratio-1-1">
                 <div class="ratio-content"  >
-
                     <h1 style="font-size: 40px; color:green; text-align:center; display: block; align-items: center" th:text = "${income}">  </h1>
 
                 </div>
@@ -88,16 +87,16 @@
             <thead>
             <tr>
                 <th>Amount</th>
-                <th>Category</th>
                 <th>Currency</th>
+                <th>Category</th>
                 <th>Comment</th>
             </tr>
             </thead>
             <tbody>
         <tr th:each="income : ${incomeList}">
             <td th:text="${income.amount}">Sam</td>
-            <td th:text="${income.category}">Sam</td>
             <td th:text="${income.currency}">Sam</td>
+            <td th:text="${income.category}">Sam</td>
             <td th:text="${income.comment}">Sam</td>
 
         </tr>
