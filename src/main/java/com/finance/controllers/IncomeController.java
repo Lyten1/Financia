@@ -31,6 +31,8 @@ public class IncomeController {
 
     @Autowired
     private UserService userService;
+
+
     @GetMapping("/get")
     public String getPage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -80,6 +82,9 @@ public class IncomeController {
         model.addAttribute("income", formSum);
         return "index.html";
     }
+
+
+
 
 
 
