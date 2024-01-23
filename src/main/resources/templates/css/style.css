@@ -1,0 +1,108 @@
+* {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s linear;
+}
+
+/* .heading-link {
+    text-align: center;
+    background: url(../image/fon.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+} */
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 70px;
+    background-color: rgb(217, 114, 251);
+    padding: 0.4rem 0.8rem;
+    transition: all 0.5s ease;
+
+    .container {
+        top: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .logo {
+        margin: auto;
+        font-size: 2.5rem;
+        text-transform: capitalize;
+        color: #444;
+        font-weight: border;
+    }
+
+    .logo i {
+        color: #ffffff;
+        margin: auto;
+    }
+
+    .active {
+        width: 250px;
+    }
+
+    #menu-btn {
+        position: absolute;
+        color: rgb(0, 0, 0);
+        /* top: .4rem; */
+        left: 50%;
+        font-size: 1.5rem;
+        line-height: 50px;
+        transform: translateX(-50%);
+        cursor: pointer;
+    }
+
+    ul li {
+        position: relative;
+        list-style-type: none;
+        /* height: 50px; */
+        width: 90%;
+        margin: 0.8rem auto;
+        line-height: 50px;
+    }
+
+    ul li a {
+        color: rgb(1, 1, 1);
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 0.8rem;
+    }
+
+    ul li a:hover {
+        background-color: rgb(240, 216, 249);
+        color: black;
+    }
+
+    ul li a i {
+        min-width: 50px;
+        text-align: center;
+        margin: auto;
+        height: 50px;
+        border-radius: 10px;
+        line-height: 50px;
+    }
+
+    .trending_up {
+        color: black;
+    }
+
+    .nav-item {
+        opacity: 0;
+    }
+
+    .active .nav-item {
+        opacity: 1;
+    }
+}
