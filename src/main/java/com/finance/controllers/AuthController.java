@@ -34,7 +34,7 @@ public class AuthController {
 //        switch (userRole){
 //            case ROLE_USER -> {
 
-                return "redirect:/stat/";
+                return "redirect:/stat/month";
 //            }
 //        }
 //        return "redirect:/login";

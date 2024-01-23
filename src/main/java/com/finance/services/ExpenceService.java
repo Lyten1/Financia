@@ -6,6 +6,7 @@ import com.finance.repos.ExpenceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,6 +30,24 @@ public class ExpenceService {
         List<Expence> resultSet = new ArrayList<>();
         lst.stream()
                 .filter(expence -> expence.getDateByDate().isAfter(firstDayOfMonth))
+                .filter(expence -> expence.getUserId() == id)
+                .forEach(expence -> resultSet.add(expence));
+        return resultSet;
+    }
+
+
+    public List<Expence> getDataPerWeek(Long id) {
+        LocalDate today = LocalDate.now();
+        LocalDate monday;
+        if (today.getDayOfWeek() != DayOfWeek.MONDAY){
+            monday = today.minusDays(today.getDayOfWeek().getValue());
+        } else {
+            monday = today;
+        }
+        List<Expence> lst = getAll();
+        List<Expence> resultSet = new ArrayList<>();
+        lst.stream()
+                .filter(expence -> expence.getDateByDate().isAfter(monday))
                 .filter(expence -> expence.getUserId() == id)
                 .forEach(expence -> resultSet.add(expence));
         return resultSet;
