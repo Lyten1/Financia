@@ -28,6 +28,8 @@
     background-color: rgb(217, 114, 251);
     padding: 0.4rem 0.8rem;
     transition: all 0.5s ease;
+}
+
 
     .container-logo {
         display: flex;
@@ -41,7 +43,7 @@
         font-size: 3.5rem;
         text-transform: capitalize;
         color: #444;
-        font-weight: border;
+        font-weight: bolder;
     }
 
     .logo i {
@@ -145,12 +147,13 @@
         opacity: 1;
     }
 
-}
+
 
 .container {
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
 
     .top {
         display: flex;
@@ -184,4 +187,3 @@
     .ratio-1-1 {
         padding-top: 100%;
     }
-}

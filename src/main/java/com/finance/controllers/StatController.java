@@ -30,7 +30,7 @@ public class StatController {
         model.addAttribute("total_income", totalIncome);
         model.addAttribute("total_expence", totalExpence);
 
-        return "stat";
+        return "statis";
     }
 
 }
