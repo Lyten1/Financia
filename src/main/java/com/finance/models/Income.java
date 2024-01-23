@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Table(name = "income")
 @Getter @Setter
-public class Income {
+public class Income{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,5 +31,7 @@ public class Income {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(date, formatter);
     }
+
+
 
 }
