@@ -49,6 +49,7 @@ public class ExpenceController {
 
 
         model.addAttribute("expence", formSum);
+        model.addAttribute("List", currentUserExpences);
         return "index.html";
     }
 

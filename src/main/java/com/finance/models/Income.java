@@ -32,6 +32,18 @@ public class Income{
         return LocalDate.parse(date, formatter);
     }
 
+    public String getCurrency(){
+        switch (currency){
+            case 978:
+                return "EUR";
+            case 840:
+                return "USD";
+            case 1:
+                return "UAN";
+            default:
+                return null;
+        }
+    }
 
 
 }

@@ -52,7 +52,7 @@ public class IncomeController {
 
         model.addAttribute("income", formSum);
 
-        model.addAttribute("incomeList", currentUserIncomes);
+        model.addAttribute("List", currentUserIncomes);
         return "index.html";
     }
 

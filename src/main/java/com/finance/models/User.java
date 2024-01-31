@@ -29,6 +29,12 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "email")
     private String email;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "surname")
+    private String surname;
+    @Column(name = "defCurrency")
+    private int defaultCurrency;
     @Column(name = "role")
     private static final Collection<? extends GrantedAuthority> role = Collections.singleton(UserRole.ROLE_USER);
 
