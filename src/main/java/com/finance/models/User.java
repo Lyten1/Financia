@@ -1,16 +1,20 @@
 package com.finance.models;
 
+import com.finance.services.CurrencyService;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Locale;
 
 @Component
 @Data
@@ -34,9 +38,10 @@ public class User implements UserDetails {
     @Column(name = "surname")
     private String surname;
     @Column(name = "defCurrency")
-    private int defaultCurrency;
+    private String defaultCurrency;
     @Column(name = "role")
     private static final Collection<? extends GrantedAuthority> role = Collections.singleton(UserRole.ROLE_USER);
+
 
 
     @Override

@@ -3,6 +3,7 @@ package com.finance.controllers;
 import ch.qos.logback.core.model.Model;
 import com.finance.configs.AuthProvider;
 import com.finance.models.UserRole;
+import com.finance.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,9 @@ public class AuthController {
 
     @Autowired
     AuthProvider authProvider;
+
+    @Autowired
+    CurrencyService currencyService;
 //    @PostMapping("/login")
 //    public String postLogin(@RequestParam String login, @RequestParam String password, Model model){
 //
@@ -31,13 +35,14 @@ public class AuthController {
 
         var userRole = (UserRole)(authentication.getAuthorities().toArray()[0]);
 //
-//        switch (userRole){
-//            case ROLE_USER -> {
+        switch (userRole){
+            case ROLE_USER -> {
 
+               // currencyService.updateAllCurrenciesInDatabase();
                 return "redirect:/stat/month";
-//            }
-//        }
-//        return "redirect:/login";
+            }
+        }
+       return "redirect:/login";
     }
 
 

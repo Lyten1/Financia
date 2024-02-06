@@ -86,18 +86,20 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Amount</th>
                 <th>Currency</th>
+                <th>Amount</th>
                 <th>Category</th>
                 <th>Comment</th>
+                <th>Date</th>
             </tr>
             </thead>
             <tbody>
-        <tr th:each="income : ${incomeList}">
-            <td th:text="${income.amount}">Sam</td>
-            <td th:text="${income.currency}">Sam</td>
-            <td th:text="${income.category}">Sam</td>
-            <td th:text="${income.comment}">Sam</td>
+        <tr th:each="income : ${List}">
+            <td th:text="${income.getCurrency()}"></td>
+            <td th:text="${income.amount}"></td>
+            <td th:text="${income.category}"></td>
+            <td th:text="${income.comment}"></td>
+            <td th:text="${income.date}"></td>
 
         </tr>
             </tbody>

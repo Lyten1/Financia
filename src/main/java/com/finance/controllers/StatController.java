@@ -2,112 +2,173 @@ package com.finance.controllers;
 
 import com.finance.models.Expence;
 import com.finance.models.Income;
-import com.finance.services.ExpenceService;
-import com.finance.services.IncomeService;
-import com.finance.services.UserService;
+import com.finance.services.*;
+import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.router.Route;
+import elemental.html.DivElement;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.http.HttpServletResponse;
+import org.jsoup.helper.HttpConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.round;
+
+
 @Controller
 @RequestMapping("/stat")
 public class StatController {
 
     @Autowired
-    private IncomeService incomeService;
+    private StatService statService;
 
-    @Autowired
-    private ExpenceService expenceService;
 
-    @Autowired
-    private UserService userService;
+    @GetMapping("/day")
+    public String getDayStatistic(Model model){
 
+
+//        // this day income & expence
+//        // 10 last transactions
+
+        String period = "day";
+        Long currentUser_id = statService.getUserId();
+        String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
+        double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
+        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
+        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+
+        model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
+        model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));
+
+
+        model.addAttribute("set", period);
+        model.addAttribute("defCurrency", defaultCurrency.toUpperCase());
+        model.addAttribute("total_income", String.format("%.2f", totalIncome));
+        model.addAttribute("total_expence", String.format("%.2f", totalExpence));
+        model.addAttribute("incomeList", sortIncomeList);
+        model.addAttribute("expenceList", sortExpenceList);
+
+        return "statis";
+    }
 
 
     @GetMapping("/week")
     public String getWeekStatistic(Model model){
 
-        // this week income & expence
-        // 10 last transactions
+//        // this week income & expence
+//        // 10 last transactions
+
+        String period = "week";
+        Long currentUser_id = statService.getUserId();
+        String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
+        double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
+        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
+        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+
+        model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
+        model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));
 
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long current_id =  userService.findByUsername(authentication.getName()).getId();
-
-        List<Income> listIncome = incomeService.getDataPerWeek(current_id);
-        List<Expence> listExpence = expenceService.getDataPerWeek(current_id);
-
-
-        double totalIncome = listIncome.stream().mapToDouble(income -> income.getAmount()).sum();
-        double totalExpence = listExpence.stream().mapToDouble(expence -> expence.getAmount()).sum();
-
+        model.addAttribute("set", period);
+        model.addAttribute("defCurrency", defaultCurrency.toUpperCase());
         model.addAttribute("total_income", String.format("%.2f", totalIncome));
-        model.addAttribute("total_expence",String.format("%.2f", totalExpence));
-
-
-        List<Income> sortedIncomeList = listIncome.stream()
-                .sorted(Comparator.comparing(Income::getDateByDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
-
-        List<Expence> sortedExpenceList = listExpence.stream()
-                .sorted(Comparator.comparing(Expence::getDateByDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
-
-        model.addAttribute("incomeList", sortedIncomeList);
-        model.addAttribute("expenceList", sortedExpenceList);
-
+        model.addAttribute("total_expence", String.format("%.2f", totalExpence));
+        model.addAttribute("incomeList", sortIncomeList);
+        model.addAttribute("expenceList", sortExpenceList);
 
         return "statis";
     }
 
     @GetMapping("/month")
     public String getDefaultStatistic(Model model){
-
         // this month income & expence
         // 10 last transactions
 
+        String period = "month";
+        Long currentUser_id = statService.getUserId();
+        String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
+        double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
+        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
+        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long current_id =  userService.findByUsername(authentication.getName()).getId();
-
-        List<Income> listIncome = incomeService.getDataPerMonth(current_id);
-        List<Expence> listExpence = expenceService.getDataPerMonth(current_id);
 
 
-        double totalIncome = listIncome.stream().mapToDouble(income -> income.getAmount()).sum();
-        double totalExpence = listExpence.stream().mapToDouble(expence -> expence.getAmount()).sum();
 
+        model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
+        model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));
+
+        model.addAttribute("set", period);
+        model.addAttribute("defCurrency", defaultCurrency.toUpperCase());
         model.addAttribute("total_income", String.format("%.2f", totalIncome));
-        model.addAttribute("total_expence",String.format("%.2f", totalExpence));
-
-
-        List<Income> sortedIncomeList = listIncome.stream()
-                .sorted(Comparator.comparing(Income::getDateByDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
-
-        List<Expence> sortedExpenceList = listExpence.stream()
-                .sorted(Comparator.comparing(Expence::getDateByDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
-
-        model.addAttribute("incomeList", sortedIncomeList);
-        model.addAttribute("expenceList", sortedExpenceList);
+        model.addAttribute("total_expence", String.format("%.2f", totalExpence));
+        model.addAttribute("incomeList", sortIncomeList);
+        model.addAttribute("expenceList", sortExpenceList);
 
 
         return "statis";
     }
+
+
+
+
+
+    @GetMapping("/year")
+    public String getYearStatistic(Model model){
+
+//        // this month income & expence
+//        // 10 last transactions
+
+        String period = "year";
+        Long currentUser_id = statService.getUserId();
+        String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
+        double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
+        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
+        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+
+        model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
+        model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));
+
+
+        model.addAttribute("set", period);
+        model.addAttribute("defCurrency", defaultCurrency.toUpperCase());
+        model.addAttribute("total_income", String.format("%.2f", totalIncome));
+        model.addAttribute("total_expence", String.format("%.2f", totalExpence));
+        model.addAttribute("incomeList", sortIncomeList);
+        model.addAttribute("expenceList", sortExpenceList);
+        return "statis";
+    }
+
+
+
+
 
 }

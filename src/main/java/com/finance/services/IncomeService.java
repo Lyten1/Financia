@@ -23,13 +23,34 @@ public class IncomeService {
     }
 
 
-    public List<Income> getDataPerMonth(Long id) {
-        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public List<Income> getDataPerDay(Long id) {
+        LocalDate today = LocalDate.now();
         List<Income> lst = getAll();
         List<Income> resultSet = new ArrayList<>();
         lst.stream()
-                .filter(income -> income.getDateByDate().isAfter(firstDayOfMonth))
+                .filter(income -> income.getDateByDate().isEqual(today))
+                .filter(income -> income.getUserId() == id)
+                .forEach(income -> resultSet.add(income));
+        return resultSet;
+    }
+
+    public List<Income> getDataPerMonth(Long id) {
+        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+        List<Income> lst = getAll();
+        List<Income> resultSet = new ArrayList<>();
+        lst.stream()
+                .filter(income -> income.getDateByDate().isAfter(firstDayOfMonth.minusDays(1)))
+                .filter(income -> income.getUserId() == id)
+                .forEach(income -> resultSet.add(income));
+        return resultSet;
+    }
+
+    public List<Income> getDataPerYear(Long id) {
+        LocalDate firstDayOfYear = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+        List<Income> lst = getAll();
+        List<Income> resultSet = new ArrayList<>();
+        lst.stream()
+                .filter(income -> income.getDateByDate().isAfter(firstDayOfYear.minusDays(1)))
                 .filter(income -> income.getUserId() == id)
                 .forEach(income -> resultSet.add(income));
         return resultSet;
@@ -47,7 +68,7 @@ public class IncomeService {
         List<Income> lst = getAll();
         List<Income> resultSet = new ArrayList<>();
         lst.stream()
-                .filter(income -> income.getDateByDate().isAfter(monday))
+                .filter(income -> income.getDateByDate().isAfter(monday.minusDays(1)))
                 .filter(income -> income.getUserId() == id)
                 .forEach(income -> resultSet.add(income));
         return resultSet;

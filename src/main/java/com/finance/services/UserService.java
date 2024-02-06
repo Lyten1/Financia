@@ -15,8 +15,10 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
+
+
     public UserDetails loadUserByUsername(String username) throws NullPointerException, UsernameNotFoundException {
-        User userUnit = findByUsername(username);
+            User userUnit = findByUsername(username);
 
            return new org.springframework.security.core.userdetails.User(
                    userUnit.getUsername(),
@@ -26,7 +28,9 @@ public class UserService implements UserDetailsService {
 
     }
 
-
+    public User getById(Long id){
+        return userRepo.getById(id);
+    }
 
     public User findByUsername(String username) {
         return userRepo.findByUsername(username).orElse(null);

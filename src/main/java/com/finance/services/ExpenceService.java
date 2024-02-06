@@ -23,13 +23,35 @@ public class ExpenceService {
     }
 
 
-    public List<Expence> getDataPerMonth(Long id) {
-        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public List<Expence> getDataPerDay(Long id) {
+        LocalDate today = LocalDate.now();
         List<Expence> lst = getAll();
         List<Expence> resultSet = new ArrayList<>();
         lst.stream()
-                .filter(expence -> expence.getDateByDate().isAfter(firstDayOfMonth))
+                .filter(expence -> expence.getDateByDate().isEqual(today))
+                .filter(expence -> expence.getUserId() == id)
+                .forEach(expence -> resultSet.add(expence));
+        return resultSet;
+    }
+
+
+    public List<Expence> getDataPerMonth(Long id) {
+        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+        List<Expence> lst = getAll();
+        List<Expence> resultSet = new ArrayList<>();
+        lst.stream()
+                .filter(expence -> expence.getDateByDate().isAfter(firstDayOfMonth.minusDays(1)))
+                .filter(expence -> expence.getUserId() == id)
+                .forEach(expence -> resultSet.add(expence));
+        return resultSet;
+    }
+
+    public List<Expence> getDataPerYear(Long id) {
+        LocalDate firstDayOfYear = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+        List<Expence> lst = getAll();
+        List<Expence> resultSet = new ArrayList<>();
+        lst.stream()
+                .filter(expence -> expence.getDateByDate().isAfter(firstDayOfYear.minusDays(1)))
                 .filter(expence -> expence.getUserId() == id)
                 .forEach(expence -> resultSet.add(expence));
         return resultSet;
@@ -47,7 +69,7 @@ public class ExpenceService {
         List<Expence> lst = getAll();
         List<Expence> resultSet = new ArrayList<>();
         lst.stream()
-                .filter(expence -> expence.getDateByDate().isAfter(monday))
+                .filter(expence -> expence.getDateByDate().isAfter(monday.minusDays(1)))
                 .filter(expence -> expence.getUserId() == id)
                 .forEach(expence -> resultSet.add(expence));
         return resultSet;

@@ -6,16 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistic</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="../static/js/script.js" th:src="@{/js/script.js}"
+        th:inline="javascript"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        google.charts.load("current", {packages:["corechart"]});
+
+
+        google.charts.setOnLoadCallback(drawChartExp);
+        google.charts.setOnLoadCallback(drawChartInc);
+        function drawChartInc() {
+
+            var dataInc = new google.visualization.DataTable();
+            dataInc.addColumn('string', 'Categories');
+            dataInc.addColumn('number', 'Money');
+            dataInc.addRows([[${chartDataInc}]]);
+
+            var options = {
+                //pieSliceBorderColor: 'black',
+                pieHole: 0.87,
+                pieSliceTextStyle: {
+                    color: 'transparent',
+                },
+                legend: 'none',
+                backgroundColor : 'transparent',
+                slices: [{}, {}, {} ],
+                slices: {1: {color: '#83C0C1'}, 3:{color: 'magenta'}},
+                chartArea:{left:10,top:10,width:'90%',height:'90%'}
+            };
+
+
+            var chartInc = new google.visualization.PieChart(document.getElementById('donutchartIncome'));
+            chartInc.draw(dataInc, options);
+        }
+
+        function drawChartExp() {
+
+
+            var dataExp = new google.visualization.DataTable();
+            dataExp.addColumn('string', 'Categories');
+            dataExp.addColumn('number', 'Money');
+            dataExp.addRows([[${chartDataExp}]]);
+
+
+
+            var options = {
+                //pieSliceBorderColor: 'black',
+                pieHole: 0.87,
+                pieSliceTextStyle: {
+                    color: 'transparent',
+                },
+                reverseCategories : 'true',
+                legend: 'none',
+                backgroundColor : 'transparent',
+                slices: [{}, {}, {} ],
+                slices: {1: {color: '#83C0C1'}, 3:{color: 'magenta'}},
+                chartArea:{left:10,top:10,width:'90%',height:'90%'}
+            };
+
+            var chartExp = new google.visualization.PieChart(document.getElementById('donutchartExpence'));
+            chartExp.draw(dataExp, options);
+
+        }
+    </script>
 
 </head>
 
 <body>
-    <!-- header selection start-->
+
     <header class="header">
         <div class="sidebar">
             <div class="container-logo">
@@ -69,98 +135,97 @@
         </div>
     </header>
     <!-- header selection end-->
-
     <div class="container">
-        <div class="container">
-            <div class="top">
-                <div>
-                    <label><a th:href="@{/stat/week}">Week</a></label>
-                    <label><a th:href="@{/stat/month}">Month</a></label>
 
-                </div>
-                <div class="rectangle">
-                    <div class="ratio-inner ratio-1-1">
-                        <div class="ratio-content">
-
-                            <h1 style="font-size: 40px; color:#c50000; text-align:center; display: block; align-items: center"
-                                th:text="${total_expence}"> </h1>
-                        </div>
-                    </div>
-                </div>
-                <div data-proportion-h="1" class="rectangle">
-                    <div class="ratio-inner ratio-1-1">
-                        <div class="ratio-content">
-
-                            <h1 style="font-size: 40px; color:green; text-align:center; display: block; align-items: center"
-                                th:text="${total_income}"> </h1>
-
-                        </div>
-                    </div>
-                </div>
+        <div style="position: relative;">
+            <div class="super-links">
+                <a class="super-link" th:classappend="${set == 'day' ? 'active-butt' : ''}"
+                    th:href="@{/stat/day}">Day</a>
+                <a class="super-link" th:classappend="${set == 'week' ? 'active-butt' : ''}"
+                    th:href="@{/stat/week}">Week</a>
+                <a class="super-link" th:classappend="${set == 'month' ? 'active-butt' : ''}"
+                    th:href="@{/stat/month}">Month</a>
+                <a class="super-link" th:classappend="${set == 'year' ? 'active-butt' : ''}"
+                    th:href="@{/stat/year}">Year</a>
+            </div>
+            <div class="defCurrency">
+                <label th:text="${defCurrency}"></label>
             </div>
         </div>
 
-        <div class="container">
-            <div class="top">
-                <div class="rectangle">
-                    <div class="ratio-inner ratio-1-1">
-                        <div class="ratio-content">
 
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Category</th>
-                                        <th>Comment</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="expence : ${expenceList}">
-                                        <td th:text="${expence.amount}">Sam</td>
-                                        <td th:text="${expence.currency}">Sam</td>
-                                        <td th:text="${expence.category}">Sam</td>
-                                        <td th:text="${expence.comment}">Sam</td>
-                                        <td th:text="${expence.date}">Sam</td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="row">
+            <div class="col-xs-6 total-data-div ">
+                <div class="total-data">
+                    <div class="text-wrapper">
+                        <h1 class="text-total-expence" th:text="${total_expence}">3212123,34</h1>
                     </div>
+                    <div id="donutchartExpence"></div>
                 </div>
-                <div class="rectangle">
-                    <div class="ratio-inner ratio-1-1">
-                        <div class="ratio-content">
-
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Category</th>
-                                        <th>Comment</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="income : ${incomeList}">
-                                        <td th:text="${income.amount}">Sam</td>
-                                        <td th:text="${income.currency}">Sam</td>
-                                        <td th:text="${income.category}">Sam</td>
-                                        <td th:text="${income.comment}">Sam</td>
-                                        <td th:text="${income.date}">Sam</td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            </div>
+            <div class="col-xs-6 total-data-div">
+                <div class="total-data">
+                    <div class="text-wrapper">
+                        <h1 class="text-total-income" th:text="${total_income}">65,45</h1>
                     </div>
+                    <div id="donutchartIncome"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="expence : ${expenceList}">
+                                <td th:text="${expence.amount}"></td>
+                                <td th:text="${expence.category}"></td>
+                                <td th:text="${expence.comment}"></td>
+                                <td th:text="${expence.date}"></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-6 ">
+                <div class="">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="income : ${incomeList}">
+                                <td th:text="${income.amount}"></td>
+                                <td th:text="${income.category}"></td>
+                                <td th:text="${income.comment}"></td>
+                                <td th:text="${income.date}"></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
 
 </body>
