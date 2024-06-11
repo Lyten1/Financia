@@ -21,7 +21,7 @@ public class Income{
     @Column(name = "comment")
     private String comment;
     @Column(name = "userId")
-    private int userId;
+    private Long userId;
     @Column(name = "currency")
     private String currency;
     @Column(name = "date")
@@ -32,8 +32,21 @@ public class Income{
         return LocalDate.parse(date, formatter);
     }
 
+    public String convertDate(String inputDate) {
+
+        String[] parts = inputDate.split("-");
+        String outputDate = parts[2] + "/" + parts[1] + "/" + parts[0];
+        return outputDate;
+    }
 
 
-
-
+    @Override
+    public String toString() {
+        return new String("id = " + id +
+                "\namount = " + amount+
+                "\ncurrency = " + currency+
+                "\ncategory = " + category+
+                "\nuser_id = " + userId+
+                "\ndate = " + date);
+    }
 }

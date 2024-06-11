@@ -17,6 +17,9 @@
 
 } */
 
+:root {
+    --color: white;
+}
 
 
 .defCurrency {
@@ -35,7 +38,8 @@
 .super-link {
     margin: 0px 15px;
     font-size: 18px;
-    color: white;
+
+    color: var(--color);
     background-color: rgb(181, 55, 223);
     padding: 10px 30px;
     border-radius: 10px;
@@ -271,12 +275,12 @@
 /*    trasform */
 /*}*/
 
-#donutchartExpence{
+#donutchartExpence {
     width: 300px;
     height: 300px;
 }
 
-#donutchartIncome{
+#donutchartIncome {
     width: 300px;
     height: 300px;
 }
@@ -310,7 +314,7 @@
     border-radius: 10px;
 }
 
-.text-wrapper{
+.text-wrapper {
 
     position: absolute;
     width: 100%;
@@ -319,4 +323,190 @@
     justify-content: center;
     align-items: center;
     vertical-align: center;
+}
+
+.info {
+    margin-top: 120px;
+    margin-left: 30px;
+}
+
+.info .main {
+    font-size: 60px;
+}
+
+.info .mail {
+    font-size: 25px;
+}
+
+.info .currencies {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.avatar {
+    margin-top: 120px;
+    display: block;
+    width: 100%;
+
+}
+
+.currencies {
+    width: 300px;
+
+}
+
+.currencies-text {
+    text-align: center;
+    font-size: 30px;
+}
+
+.countries-pictures {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.countries {
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.34);
+    border-radius: 100%;
+}
+
+.countries:hover {
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 100%;
+    transition: all 0.2s linear;
+}
+
+.country-active {
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(2, 2, 2, 0.82);
+    border-radius: 100%;
+}
+
+.main-interface {
+    position: relative;
+    margin: auto;
+    max-width: 820px;
+    padding-left: 62px;
+    margin-top: 70px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hr {
+    display: block;
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.data-put {
+    font-size: 18px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.selector-curr {
+    width: 80px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.titled {
+    display: block;
+    font-size: 20px;
+    text-align: center;
+}
+
+.titled:nth-child(0n + 2) {
+    width: 140px;
+}
+
+.titled:nth-child(0n + 3) {
+    width: 150px;
+}
+
+.titled:nth-child(0n + 4) {
+    width: 340px;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.input-amount {
+    border: 1px solid black;
+    width: 140px;
+    padding: 5px;
+    text-align: right;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.input-comment {
+    border: 1px solid black;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.selector-category {
+    width: 100%;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.thirdPart {
+    width: 340px;
+    margin-top: 10px;
+    display: flex;
+    align-self: flex-end;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.button-sub {
+    border: 3px solid black;
+    padding: 0 15px;
+    border-radius: 15px;
+    width: 140px;
+    background-color: #595959;
+    color: white;
+}
+
+.table {
+    width: 95%;
+    margin: 10px auto 0 auto;
+}
+
+.main-interface select,
+.main-interface input {
+    height: 40px;
+}
+
+th,
+td {
+    text-align: center;
 }

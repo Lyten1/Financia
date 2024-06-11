@@ -21,7 +21,7 @@ public class Expence {
     @Column(name = "comment")
     private String comment;
     @Column(name = "userId")
-    private int userId;
+    private Long userId;
     @Column(name = "currency")
     private String currency;
     @Column(name = "date")
@@ -32,6 +32,16 @@ public class Expence {
         return LocalDate.parse(date, formatter);
     }
 
+    public String convertDate(String inputDate) {
+
+        String[] parts = inputDate.split("-");
+        String outputDate = parts[2] + "/" + parts[1] + "/" + parts[0];
+        return outputDate;
+    }
 
 
+    @Override
+    public String toString() {
+        return this.getAmount() + " - " + this.getCurrency();
+    }
 }

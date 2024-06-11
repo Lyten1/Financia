@@ -15,6 +15,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
+    public void save(User user){
+        userRepo.save(user);
+    }
 
 
     public UserDetails loadUserByUsername(String username) throws NullPointerException, UsernameNotFoundException {

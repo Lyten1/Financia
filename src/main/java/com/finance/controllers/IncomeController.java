@@ -3,6 +3,8 @@ package com.finance.controllers;
 
 import com.finance.models.Expence;
 import com.finance.models.Income;
+import com.finance.models.User;
+import com.finance.services.CurrencyService;
 import com.finance.services.IncomeService;
 import com.finance.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/income")
 public class IncomeController {
 
     @Autowired
@@ -32,8 +31,52 @@ public class IncomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CurrencyService currencyService;
 
-    @GetMapping("/get")
+
+    @GetMapping("/income")
+    public String getIncome(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<String> categories = Arrays.asList("Sallary", "Gift", "Sell", "Other");
+
+        User currUser = userService.findByUsername(authentication.getName());
+        String defCur = currUser.getDefaultCurrency();
+        List<String> currencies = currencyService.getListOfCurrencies(defCur);
+
+
+        List<Income> incomeList = incomeService.getDataPerMonth(currUser.getId());
+        incomeList = incomeService.getTenLastIncomesSortedReversed(incomeList);
+        incomeList = incomeService.transformListFromEURtoCurrency(incomeList);
+
+        Income income = new Income();
+
+        model.addAttribute("incomeList", incomeList);
+        model.addAttribute("categories", categories);
+        model.addAttribute("currencies", currencies);
+        model.addAttribute("income", income);
+        return "income";
+    }
+
+    @PostMapping("/income/add")
+    public String addNewIncome(@ModelAttribute Income income){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByUsername(authentication.getName());
+
+        if(!income.getCurrency().equals("eur")) {
+            double exchangeCurrency = incomeService.getExchangeCurrency(income.getCurrency());
+            income.setAmount(income.getAmount() / exchangeCurrency);
+        }
+
+        income.setUserId(user.getId());
+        income.setDate(income.convertDate(income.getDate()));
+
+        incomeService.save(income);
+        return "redirect:/income";
+    }
+
+
+
     public String getPage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long current_id =  userService.findByUsername(authentication.getName()).getId();

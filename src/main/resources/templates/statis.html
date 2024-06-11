@@ -100,31 +100,30 @@
 
             <ul>
                 <li>
-                    <a href="profile.html">
+                    <a th:href="@{/profile}">
                         <i class="fas fa-user"></i>
                     </a>
-
                     <span class="tooltips">Acount</span>
                 </li>
 
                 <li>
-                    <a href="income.html">
+                    <a th:href="@{/income}">
                         <i class="material-icons">trending_up</i>
                     </a>
                     <span class="tooltips">Income</span>
                 </li>
 
                 <li>
-                    <a href="expence.html">
+                    <a th:href="@{/expence}">
                         <i class="material-icons">trending_down</i>
                     </a>
                     <span class="tooltips">Outcome</span>
                 </li>
                 <li>
-                    <a href="statis.html">
+                    <a>
                         <i class="glyphicon glyphicon-stats"></i>
                     </a>
-                    <span class="tooltips">Statis</span>
+                    <span class="tooltips" >Statis</span>
 
                 </li>
             </ul>
@@ -158,7 +157,7 @@
             <div class="col-xs-6 total-data-div ">
                 <div class="total-data">
                     <div class="text-wrapper">
-                        <h1 class="text-total-expence" th:text="${total_expence}">3212123,34</h1>
+                        <h1 class="text-total-expence" th:text="${total_expence}">321,34</h1>
                     </div>
                     <div id="donutchartExpence"></div>
                 </div>

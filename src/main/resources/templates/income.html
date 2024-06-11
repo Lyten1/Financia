@@ -9,7 +9,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="../static/js/script.js" th:src="@{/js/script.js}"
+        th:inline="javascript"></script>
+    <script type="text/javascript" th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('datePicker').valueAsDate = new Date();
+
+        });
+        function clearField() {
+            document.getElementById("input").value = "";
+        }
+        function isNumber(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>
@@ -21,7 +44,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="profile.html">
+                    <a th:href="@{/profile}">
                         <i class="fas fa-user"></i>
                     </a>
 
@@ -29,20 +52,20 @@
                 </li>
 
                 <li>
-                    <a href="income.html">
+                    <a>
                         <i class="material-icons">trending_up</i>
                     </a>
                     <span class="tooltips">Income</span>
                 </li>
 
                 <li>
-                    <a href="expence.html">
+                    <a th:href="@{/expence}">
                         <i class="material-icons">trending_down</i>
                     </a>
                     <span class="tooltips">Outcome</span>
                 </li>
                 <li>
-                    <a href="statis.html">
+                    <a th:href="@{/stat/month}">
                         <i class="glyphicon glyphicon-stats"></i>
                     </a>
                     <span class="tooltips">Statis</span>
@@ -57,4 +80,61 @@
 
     </header>
     <!-- header selection end-->
+
+    <div class="main-interface">
+        <h1>Income</h1>
+        <form class="form" method="post" th:action="@{/income/add}" th:object="${income}">
+            <div class="data-put">
+                <select class="selector-curr" th:value="${currencies}" th:field="*{currency}">
+                    <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency.toUpperCase()}"></option>
+                </select>
+
+                <div class="titled">
+                    <div class="title">Amount</div>
+                    <input id="input" class="input-amount" type="text" th:onclick="clearField()" th:field="*{amount}" th:value="${income.amount}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                </div>
+
+                <div class="titled">
+                    <div class="title">Category</div>
+                    <select class="selector-category" th:value="${categories}" th:field="*{category}">
+                        <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                    </select>
+                </div>
+
+                <div class="titled">
+                    <div class="title">Comments</div>
+                    <input class="input-comment" th:value="${income.comment}" th:field="*{comment}" />
+                </div>
+            </div>
+
+            <div class="thirdPart">
+                <input type="date" id="datePicker" class="input-amount" th:value="${income.date}" th:field="*{date}" />
+                <input class="button-sub" type="submit" value="Add" />
+            </div>
+        </form>
+
+        <hr class="hr"/>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="income : ${incomeList}">
+                    <td th:text="${income.currency.toUpperCase()}"></td>
+                    <td th:text="${income.amount}"></td>
+                    <td th:text="${income.category}"></td>
+                    <td th:text="${income.comment}"></td>
+                    <td th:text="${income.date}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>

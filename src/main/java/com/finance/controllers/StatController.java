@@ -47,12 +47,12 @@ public class StatController {
         Long currentUser_id = statService.getUserId();
         String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
         double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
-        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
-        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
-        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
-        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
-        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
-        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id, exchangeCurrency);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id, exchangeCurrency);
+        double totalIncome = statService.getTotalIncome(incomeList);
+        double totalExpence = statService.getTotalExpence(expenceList);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList);
 
         model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
         model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));
@@ -79,12 +79,12 @@ public class StatController {
         Long currentUser_id = statService.getUserId();
         String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
         double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
-        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
-        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
-        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
-        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
-        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
-        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id,exchangeCurrency);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id, exchangeCurrency);
+        double totalIncome = statService.getTotalIncome(incomeList);
+        double totalExpence = statService.getTotalExpence(expenceList);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList);
 
         model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
         model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));
@@ -109,12 +109,12 @@ public class StatController {
         Long currentUser_id = statService.getUserId();
         String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
         double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
-        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
-        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
-        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
-        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
-        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
-        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id, exchangeCurrency);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id, exchangeCurrency);
+        double totalIncome = statService.getTotalIncome(incomeList);
+        double totalExpence = statService.getTotalExpence(expenceList);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList);
 
 
 
@@ -147,12 +147,12 @@ public class StatController {
         Long currentUser_id = statService.getUserId();
         String defaultCurrency = statService.getDefaultCurrency(currentUser_id);
         double exchangeCurrency = statService.getExchangeCurrency(defaultCurrency);
-        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id);
-        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id);
-        double totalIncome = statService.getTotalIncome(incomeList, exchangeCurrency);
-        double totalExpence = statService.getTotalExpence(expenceList, exchangeCurrency);
-        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList, exchangeCurrency);
-        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList, exchangeCurrency);
+        List<Income> incomeList = statService.getListIncomesPerPeriod(period, currentUser_id, exchangeCurrency);
+        List<Expence> expenceList = statService.getListExpencesPerPeriod(period, currentUser_id, exchangeCurrency);
+        double totalIncome = statService.getTotalIncome(incomeList);
+        double totalExpence = statService.getTotalExpence(expenceList);
+        List<Income> sortIncomeList = statService.getSortedListOfTenLatestIncomes(incomeList);
+        List<Expence> sortExpenceList = statService.getSortedListOfTenLatestExpences(expenceList);
 
         model.addAttribute("chartDataInc", statService.getChartDataIncome(incomeList));
         model.addAttribute("chartDataExp", statService.getChartDataExpence(expenceList));

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expence</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="../static/js/script.js" th:src="@{/js/script.js}"
+            th:inline="javascript"></script>
+    <script type="text/javascript" th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('datePicker').valueAsDate = new Date();
+
+        });
+        function clearField() {
+            document.getElementById("input").value = "";
+        }
+        function isNumber(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+<!-- header selection start-->
+<header class="header">
+    <div class="sidebar">
+        <div class="container-logo">
+            <a href="#" class="logo"><i class="fab fa-bitcoin"></i></a>
+        </div>
+        <ul>
+            <li>
+                <a th:href="@{/profile}">
+                    <i class="fas fa-user"></i>
+                </a>
+
+                <span class="tooltips">Acount</span>
+            </li>
+
+            <li>
+                <a th:href="@{/income}">
+                    <i class="material-icons">trending_up</i>
+                </a>
+                <span class="tooltips">Income</span>
+            </li>
+
+            <li>
+                <a>
+                    <i class="material-icons">trending_down</i>
+                </a>
+                <span class="tooltips">Expence</span>
+            </li>
+            <li>
+                <a th:href="@{/stat/month}">
+                    <i class="glyphicon glyphicon-stats"></i>
+                </a>
+                <span class="tooltips">Statis</span>
+
+            </li>
+        </ul>
+        <button class="nav-button">
+            <i class="fa fa-sign-out"></i>
+            <span class="tooltips">logout</span>
+        </button>
+    </div>
+
+</header>
+<!-- header selection end-->
+
+<div class="main-interface">
+    <h1>Expence</h1>
+    <form class="form" method="post" th:action="@{/expence/add}" th:object="${expence}">
+        <div class="data-put">
+            <select class="selector-curr" th:value="${currencies}" th:field="*{currency}">
+                <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency.toUpperCase()}"></option>
+            </select>
+
+            <div class="titled">
+                <div class="title">Amount</div>
+                <input id="input" class="input-amount" type="text" th:onclick="clearField()" th:field="*{amount}" th:value="${expence.amount}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+            </div>
+
+            <div class="titled">
+                <div class="title">Category</div>
+                <select class="selector-category" th:value="${categories}" th:field="*{category}">
+                    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                </select>
+            </div>
+
+            <div class="titled">
+                <div class="title">Comments</div>
+                <input class="input-comment" th:value="${expence.comment}" th:field="*{comment}" />
+            </div>
+        </div>
+
+        <div class="thirdPart">
+            <input type="date" id="datePicker" class="input-amount" th:value="${expence.date}" th:field="*{date}" />
+            <input class="button-sub" type="submit" value="Add" />
+        </div>
+    </form>
+
+    <hr class="hr"/>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Comment</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="expence : ${expenceList}">
+            <td th:text="${expence.currency.toUpperCase()}"></td>
+            <td th:text="${expence.amount}"></td>
+            <td th:text="${expence.category}"></td>
+            <td th:text="${expence.comment}"></td>
+            <td th:text="${expence.date}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>

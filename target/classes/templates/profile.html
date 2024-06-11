@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +25,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="profile.html">
+                    <a >
                         <i class="fas fa-user"></i>
                     </a>
 
@@ -29,20 +33,20 @@
                 </li>
 
                 <li>
-                    <a href="income.html">
+                    <a th:href="@{/income}">
                         <i class="material-icons">trending_up</i>
                     </a>
                     <span class="tooltips">Income</span>
                 </li>
 
                 <li>
-                    <a href="expence.html">
+                    <a th:href="@{/expence}">
                         <i class="material-icons">trending_down</i>
                     </a>
                     <span class="tooltips">Outcome</span>
                 </li>
                 <li>
-                    <a href="statis.html">
+                    <a th:href="@{/stat/month}">
                         <i class="glyphicon glyphicon-stats"></i>
                     </a>
                     <span class="tooltips">Statis</span>
@@ -57,4 +61,92 @@
 
     </header>
     <!-- header selection end-->
+
+    <div>
+        <div class="row" >
+            <div class="col-xs-2"></div>
+            <div class="col-xs-2">
+                    <img class="avatar"  src="../static/images/profile.png"
+                         th:src="@{/images/profile.png}">
+            </div>
+            <div class="col-xs-6">
+                <div class="info">
+                    <div class = "main">
+                        <label th:text="${name}">Name</label>
+                        <label th:text="${surname}">Surname</label>
+                    </div>
+                    <div class = "mail">
+                        <label th:text="${email}">email@gmail.com</label>
+                    </div>
+                    <div class = "currencies">
+                        <div class="currencies-text">Change your default currency</div>
+                        <div class="countries-pictures">
+                            <a th:href="@{/profile/newCurr/eur}">
+                            <img class="countries"  src="../static/images/europe.png"
+                                 th:classappend="${currency == 'eur' ? 'country-active' : ''}"
+                                 th:src="@{/images/europe.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/usd}">
+                            <img class="countries"  src="../static/images/united-states.png"
+                                 th:classappend="${currency == 'usd' ? 'country-active' : ''}"
+                                 th:src="@{/images/united-states.png}" th:href="@{/profile/newCurr/usd}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/gbp}">
+                            <img class="countries"  src="../static/images/united-kingdom.png"
+                                 th:classappend="${currency == 'gbp' ? 'country-active' : ''}"
+                                 th:src="@{/images/united-kingdom.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/uah}">
+                            <img class="countries"  src="../static/images/ukraine.png"
+                                 th:classappend="${currency == 'uah' ? 'country-active' : ''}"
+                                 th:src="@{/images/ukraine.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/sek}">
+                            <img class="countries"  src="../static/images/sweden.png"
+                                 th:classappend="${currency == 'sek' ? 'country-active' : ''}"
+                                 th:src="@{/images/sweden.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/chf}">
+                            <img class="countries"  src="../static/images/switzerland.png"
+                                 th:classappend="${currency == 'chf' ? 'country-active' : ''}"
+                                 th:src="@{/images/switzerland.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/pln}">
+                            <img class="countries"  src="../static/images/poland.png"
+                                 th:classappend="${currency == 'pln' ? 'country-active' : ''}"
+                                 th:src="@{/images/poland.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/nok}">
+                            <img class="countries"  src="../static/images/norway.png"
+                                 th:classappend="${currency == 'nok' ? 'country-active' : ''}"
+                                 th:src="@{/images/norway.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/jpy}">
+                            <img class="countries"  src="../static/images/japan.png"
+                                 th:classappend="${currency == 'jpy' ? 'country-active' : ''}"
+                                 th:src="@{/images/japan.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/czk}">
+                            <img class="countries"  src="../static/images/czech-republic.png"
+                                 th:classappend="${currency == 'czk' ? 'country-active' : ''}"
+                                 th:src="@{/images/czech-republic.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/aud}">
+                            <img class="countries"  src="../static/images/australia.png"
+                                 th:classappend="${currency == 'aud' ? 'country-active' : ''}"
+                                 th:src="@{/images/australia.png}">
+                            </a>
+                            <a th:href="@{/profile/newCurr/cny}">
+                            <img class="countries"  src="../static/images/china.png"
+                                 th:classappend="${currency == 'cny' ? 'country-active' : ''}"
+                                th:src="@{/images/china.png}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2"></div>
+        </div>
+
+    </div>
 </body>

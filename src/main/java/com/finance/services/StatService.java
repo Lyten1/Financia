@@ -45,7 +45,7 @@ public class StatService {
             return 1.0;
     }
 
-    public List<Income> getListIncomesPerPeriod(String period, Long currentUser_id){
+    public List<Income> getListIncomesPerPeriod(String period, Long currentUser_id, double exchangeCurrency){
         List<Income> incomeList = new ArrayList<>();
         switch (period) {
             case "day" -> incomeList = incomeService.getDataPerDay(currentUser_id);
@@ -57,10 +57,10 @@ public class StatService {
                 return null;
             }
         }
-        return incomeList;
+        return incomeService.transformListToDefaultCurrency(incomeList, exchangeCurrency);
     }
 
-    public List<Expence> getListExpencesPerPeriod(String period, Long currentUser_id){
+    public List<Expence> getListExpencesPerPeriod(String period, Long currentUser_id, double exchangeCurrency){
         List<Expence> expenceList = new ArrayList<>();
         switch (period) {
             case "day" -> expenceList = expenceService.getDataPerDay(currentUser_id);
@@ -72,43 +72,30 @@ public class StatService {
                 return null;
             }
         }
-        return expenceList;
+        return expenceService.transformListToDefaultCurrency(expenceList, exchangeCurrency);
     }
 
-    public double getTotalIncome(List<Income> incomeList, double exchangeCurrency){
+    public double getTotalIncome(List<Income> incomeList){
         return incomeList.stream().mapToDouble(income -> {
-            return currencyService.rouderToDec2ForExchanges(income.getAmount() * exchangeCurrency);
+            return currencyService.rouderToDec2ForExchanges(income.getAmount());
         }).sum() ;
     }
 
-    public double getTotalExpence(List<Expence> expenceList, double exchangeCurrency){
+    public double getTotalExpence(List<Expence> expenceList){
         return expenceList.stream().mapToDouble(expence -> {
-            return currencyService.rouderToDec2ForExchanges(expence.getAmount() * exchangeCurrency);
+            return currencyService.rouderToDec2ForExchanges(expence.getAmount());
         }).sum() ;
     }
 
 
-    public List<Income> getSortedListOfTenLatestIncomes(List<Income> incomeList, double exchangeCurrency){
-        List<Income> sortedIncomeList = incomeList.stream()
-                .sorted(Comparator.comparing(Income::getDateByDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
-        sortedIncomeList.forEach(income -> income.setAmount( currencyService.rouderToDec2ForExchanges(
-                income.getAmount() * exchangeCurrency)));
-        return sortedIncomeList;
+    public List<Income> getSortedListOfTenLatestIncomes(List<Income> incomeList){
+       return incomeService.getTenLastIncomesSortedReversed(incomeList);
     }
 
 
-    public List<Expence> getSortedListOfTenLatestExpences(List<Expence> expenceList, double exchangeCurrency){
-        List<Expence> sortedExpenceList = expenceList.stream()
-                .sorted(Comparator.comparing(Expence::getDateByDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
-        sortedExpenceList.forEach(expence -> expence.setAmount( currencyService.rouderToDec2ForExchanges(
-                expence.getAmount() * exchangeCurrency)));
-        return sortedExpenceList;
+    public List<Expence> getSortedListOfTenLatestExpences(List<Expence> expenceList){
+        return expenceService.getTenLastExpencesSortedReversed(expenceList);
     }
-    private static final Random RANDOM = new Random(System.currentTimeMillis());
 
     public List<List<Object>> getChartDataIncome(List<Income> incomeList) {
 
@@ -125,7 +112,6 @@ public class StatService {
                 map.put(currentCategory, income.getAmount());
         }
 
-
         List<List<Object>> listOfLists = new ArrayList<>();
         for (Map.Entry<String, Double> entry : map.entrySet()) {
             List<Object> innerList = new ArrayList<>();
@@ -133,8 +119,6 @@ public class StatService {
             innerList.add(entry.getValue());
             listOfLists.add(innerList);
         }
-
-
         return listOfLists;
     }
 
@@ -154,16 +138,12 @@ public class StatService {
                 map.put(currentCategory, expence.getAmount());
         }
 
-
         List<List<Object>> listOfLists = new ArrayList<>();
         for (Map.Entry<String, Double> entry : map.entrySet()) {
             List<Object> innerList = new ArrayList<>();
             innerList.add(entry.getKey());
             innerList.add(entry.getValue());
             listOfLists.add(innerList);
-        }
-        for (List<Object> innerList : listOfLists) {
-            System.out.println(innerList);
         }
 
         return listOfLists;

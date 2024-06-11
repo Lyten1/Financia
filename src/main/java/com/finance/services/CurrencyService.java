@@ -3,6 +3,7 @@ package com.finance.services;
 import com.finance.models.Currency;
 import com.finance.repos.CurrencyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 
@@ -22,7 +23,7 @@ public class CurrencyService {
     private CurrencyRepo currencyRepo;
 
     private final List<String> currencyNamesArray = Arrays.asList("usd", "aud", "nok",
-            "cad", "czk", "jpy", "pln", "sek", "chf", "uah", "gbp");
+            "cad", "czk", "jpy", "pln", "sek", "chf", "uah", "gbp", "cny");
 
 
 
@@ -95,6 +96,14 @@ public class CurrencyService {
         return Math.round(amount*100.0)/100.0;
     }
 
-
+    public List<String> getListOfCurrencies(String defCurrency){
+        List<String> currencies = new ArrayList<>();
+        currencies.add(defCurrency);
+        if(!defCurrency.equals("eur")){
+            currencies.add("eur");
+        }
+        currencyNamesArray.stream().filter(cur -> !currencies.contains(cur)).forEach(currencies::add);
+        return currencies;
+    }
 
 }
